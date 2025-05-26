@@ -50,9 +50,17 @@ function Heart(x, y, size, speed) {
 function animateHearts() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas
 
-  // Define a cor de fundo
-  ctx.fillStyle = '#2c3e50';  // Cor de fundo sólida
-  ctx.fillRect(0, 0, canvas.width, canvas.height); // Preenche o canvas com a cor
+  // Cria um gradiente linear com cores pastéis
+  let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  
+  // Cores pastéis
+  gradient.addColorStop(0, '#FFB6C1');  // Rosa claro
+  gradient.addColorStop(0.5, '#ADD8E6');  // Azul bebê
+  gradient.addColorStop(1, '#D8BFD8');  // Lavanda (roxo claro)
+
+  // Aplica o gradiente como cor de fundo
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   hearts.forEach((heart, index) => {
     heart.update();
