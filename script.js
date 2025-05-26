@@ -99,21 +99,26 @@ const MENSAGENS = [
   "Eu amo te amar, e essa é a melhor sensação do mundo."
 ];
 
-let currentMessage = 0;
+function getRandomMessage() {
+  // Retorna uma mensagem aleatória
+  const randomIndex = Math.floor(Math.random() * MENSAGENS.length);
+  return MENSAGENS[randomIndex];
+}
+
 function showNextMessage() {
   const messageEl = document.getElementById('message');
   messageEl.style.opacity = 0;
 
   setTimeout(() => {
-    messageEl.textContent = MENSAGENS[currentMessage];  // Corrigi para usar MENSAGENS com "M" maiúsculo
+    // Agora escolhemos a mensagem aleatória
+    messageEl.textContent = getRandomMessage();
     messageEl.style.animation = 'none';
     void messageEl.offsetWidth;
     messageEl.style.animation = null;
 
     messageEl.style.opacity = 1;
-    currentMessage = (currentMessage + 1) % MENSAGENS.length;
   }, 500);
 }
 
 showNextMessage();
-setInterval(showNextMessage, 6000);
+setInterval(showNextMessage, 5000);
