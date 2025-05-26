@@ -125,7 +125,7 @@ function getRandomMessage() {
 function getRandomPosition() {
   const margin = 20; // margem para não ficar tão colado nas bordas
 
-  // Cria uma nova div para calcular o tamanho da mensagem
+  // Cria uma nova div temporária para calcular o tamanho da mensagem
   const messageEl = document.createElement('div');
   messageEl.style.position = 'absolute';
   messageEl.style.visibility = 'hidden';
