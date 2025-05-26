@@ -57,6 +57,7 @@ function animateHearts() {
   gradient.addColorStop(0, '#FFB6C1');  // Rosa claro
   gradient.addColorStop(0.5, '#ADD8E6');  // Azul bebê
   gradient.addColorStop(1, '#D8BFD8');  // Lavanda (roxo claro)
+  gradient.addColorStop(0.5, '#FFDAB9'); //Pêssego pastel
 
   // Aplica o gradiente como cor de fundo
   ctx.fillStyle = gradient;
@@ -115,10 +116,27 @@ const MENSAGENS = [
   "Eu te amo minha florzinha de lírio."
 ];
 
+// Array de cores para as mensagens
+const COLORS = [
+  '#FFB6C1', // Rosa claro
+  '#ADD8E6', // Azul bebê
+  '#D8BFD8', // Lavanda (roxo claro)
+  '#98FB98', // Verde claro
+  '#FFFACD', // Amarelo claro
+  '#FFD700', // Ouro
+  '#FF6347'  // Tomate
+];
+
 // Função para pegar uma mensagem aleatória
 function getRandomMessage() {
   const randomIndex = Math.floor(Math.random() * MENSAGENS.length);
   return MENSAGENS[randomIndex];
+}
+
+// Função para pegar uma cor aleatória
+function getRandomColor() {
+  const randomColorIndex = Math.floor(Math.random() * COLORS.length);
+  return COLORS[randomColorIndex];
 }
 
 // Função para gerar posições aleatórias para as mensagens
@@ -161,6 +179,9 @@ function showNextMessage() {
     messageEl.style.position = 'absolute';
     messageEl.style.left = `${x}px`;
     messageEl.style.top = `${y}px`;
+
+    // Aplica uma cor aleatória à mensagem
+    messageEl.style.color = getRandomColor();
 
     messageEl.style.animation = 'none';
     void messageEl.offsetWidth; // Força reflow para reiniciar a animação
