@@ -7,114 +7,113 @@ const hearts = [];
 
 function Heart(x, y, size, speed) {
   this.x = x;
-    this.y = y;
-      this.size = size;
-        this.speed = speed;
-          this.opacity = 1;
+  this.y = y;
+  this.size = size;
+  this.speed = speed;
+  this.opacity = 1;
 
-            this.draw = function () {
-                ctx.beginPath();
-                    ctx.fillStyle = `rgba(255, 0, 100, ${this.opacity})`;
-                        ctx.moveTo(this.x, this.y);
-                            ctx.bezierCurveTo(
-                                  this.x, this.y - this.size,
-                                        this.x - this.size, this.y - this.size,
-                                              this.x - this.size, this.y
-                                                  );
-                                                      ctx.bezierCurveTo(
-                                                            this.x - this.size, this.y + this.size,
-                                                                  this.x, this.y + this.size * 1.5,
-                                                                        this.x, this.y + this.size * 2
-                                                                            );
-                                                                                ctx.bezierCurveTo(
-                                                                                      this.x, this.y + this.size * 1.5,
-                                                                                            this.x + this.size, this.y + this.size,
-                                                                                                  this.x + this.size, this.y
-                                                                                                      );
-                                                                                                          ctx.bezierCurveTo(
-                                                                                                                this.x + this.size, this.y - this.size,
-                                                                                                                      this.x, this.y - this.size,
-                                                                                                                            this.x, this.y
-                                                                                                                                );
-                                                                                                                                    ctx.fill();
-                                                                                                                                      };
+  this.draw = function () {
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(255, 0, 100, ${this.opacity})`;
+    ctx.moveTo(this.x, this.y);
 
-                                                                                                                                        this.update = function () {
-                                                                                                                                            this.y += this.speed;
-                                                                                                                                                this.opacity -= 0.005;
-                                                                                                                                                  };
-                                                                                                                                                  }
+    // Curvas para desenhar um coração
+    ctx.bezierCurveTo(
+      this.x, this.y - this.size,
+      this.x - this.size, this.y - this.size,
+      this.x - this.size, this.y
+    );
+    ctx.bezierCurveTo(
+      this.x - this.size, this.y + this.size,
+      this.x, this.y + this.size * 1.5,
+      this.x, this.y + this.size * 2
+    );
+    ctx.bezierCurveTo(
+      this.x, this.y + this.size * 1.5,
+      this.x + this.size, this.y + this.size,
+      this.x + this.size, this.y
+    );
+    ctx.bezierCurveTo(
+      this.x + this.size, this.y - this.size,
+      this.x, this.y - this.size,
+      this.x, this.y
+    );
+    ctx.fill();
+  };
 
-                                                                                                                                                  function animateHearts() {
-                                                                                                                                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                                                                                                                                      hearts.forEach((heart, index) => {
-                                                                                                                                                          heart.update();
-                                                                                                                                                              heart.draw();
-                                                                                                                                                                  if (heart.opacity <= 0) hearts.splice(index, 1);
-                                                                                                                                                                    });
-                                                                                                                                                                      requestAnimationFrame(animateHearts);
-                                                                                                                                                                      }
+  this.update = function () {
+    this.y += this.speed;
+    this.opacity -= 0.005;
+  };
+}
 
-                                                                                                                                                                      canvas.addEventListener('click', (e) => {
-                                                                                                                                                                        for (let i = 0; i < 10; i++) {
-                                                                                                                                                                            hearts.push(new Heart(
-                                                                                                                                                                                  e.clientX,
-                                                                                                                                                                                        e.clientY,
-                                                                                                                                                                                              Math.random() * 10 + 10,
-                                                                                                                                                                                                    Math.random() * 2 + 1
-                                                                                                                                                                                                        ));
-                                                                                                                                                                                                          }
-                                                                                                                                                                                                          });
+function animateHearts() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hearts.forEach((heart, index) => {
+    heart.update();
+    heart.draw();
+    if (heart.opacity <= 0) hearts.splice(index, 1);
+  });
+  requestAnimationFrame(animateHearts);
+}
 
-                                                                                                                                                                                                          animateHearts();
+canvas.addEventListener('click', (e) => {
+  for (let i = 0; i < 10; i++) {
+    hearts.push(new Heart(
+      e.clientX,
+      e.clientY,
+      Math.random() * 10 + 10,
+      Math.random() * 2 + 1
+    ));
+  }
+});
 
-                                                                                                                                                                                                          // ========== RELÓGIO PROGRESSIVO ==========
-                                                                                                                                                                                                          function updateClock() {
-                                                                                                                                                                                                            const startDate = new Date("2025-01-21T00:00:00"); // Data de início
-                                                                                                                                                                                                              const now = new Date();
-                                                                                                                                                                                                                const diffMs = now - startDate;
+animateHearts();
 
-                                                                                                                                                                                                                  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-                                                                                                                                                                                                                    const diffHours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-                                                                                                                                                                                                                      const diffMinutes = Math.floor((diffMs / (1000 * 60)) % 60);
-                                                                                                                                                                                                                        const diffSeconds = Math.floor((diffMs / 1000) % 60);
+// ========== RELÓGIO PROGRESSIVO ==========
+function updateClock() {
+  const startDate = new Date("2025-01-21T00:00:00"); // Data de início
+  const now = new Date();
+  const diffMs = now - startDate;
 
-                                                                                                                                                                                                                          document.getElementById('clock').textContent =
-                                                                                                                                                                                                                              `${diffDays}d ${diffHours}h ${diffMinutes}m ${diffSeconds}s`;
-                                                                                                                                                                                                                              }
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const diffHours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+  const diffMinutes = Math.floor((diffMs / (1000 * 60)) % 60);
+  const diffSeconds = Math.floor((diffMs / 1000) % 60);
 
-                                                                                                                                                                                                                              setInterval(updateClock, 1000);
-                                                                                                                                                                                                                              updateClock();
+  document.getElementById('clock').textContent =
+    `${diffDays}d ${diffHours}h ${diffMinutes}m ${diffSeconds}s`;
+}
 
-                                                                                                                                                                                                                              // === MENSAGENS EM LOOP ===
-                                                                                                                                                                                                                              const MENSAGENS =[
-                                                                                                                                                                                                                                  "Você vai ser minha alma para sempre!",
-                                                                                                                                                                                                                                    "Cada segundo ao seu lado é um presente.",
-                                                                                                                                                                                                                                      "Nosso amor cresce a cada batida.",
-                                                                                                                                                                                                                                        "Desde o começo de 2025, minha vida mudou.",
-                                                                                                                                                                                                                                          "Amar você é minha melhor escolha.",
-                                                                                                                                                                                                                                            "Eu te amo mais do que ontem e vou amar muito mais amanhã.",
-                                                                                                                                                                                                                                              " Eu amo te amar, e essa é a melhor sensação do mundo."
-                                                                                                                                                                                                                                              ];
+setInterval(updateClock, 1000);
+updateClock();
 
-                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                             let currentMessage = 0;
-                                                                                                                                                                                                                                          function showNextMessage() {
-                                                                                                                                                                                                                                            const messageEl = document.getElementById('message');
-                                                                                                                                                                                                                                              messageEl.style.opacity = 0;
+// === MENSAGENS EM LOOP ===
+const MENSAGENS = [
+  "Você vai ser minha alma para sempre!",
+  "Cada segundo ao seu lado é um presente.",
+  "Nosso amor cresce a cada batida.",
+  "Desde o começo de 2025, minha vida mudou.",
+  "Amar você é minha melhor escolha.",
+  "Eu te amo mais do que ontem e vou amar muito mais amanhã.",
+  "Eu amo te amar, e essa é a melhor sensação do mundo."
+];
 
-                                                                                                                                                                                                                                                setTimeout(() => {
-                                                                                                                                                                                                                                                    messageEl.textContent = messages[currentMessage];
-                                                                                                                                                                                                                                                        messageEl.style.animation = 'none';
-                                                                                                                                                                                                                                                            void messageEl.offsetWidth;
-                                                                                                                                                                                                                                                                messageEl.style.animation = null;
+let currentMessage = 0;
+function showNextMessage() {
+  const messageEl = document.getElementById('message');
+  messageEl.style.opacity = 0;
 
-                                                                                                                                                                                                                                                                    messageEl.style.opacity = 1;
-                                                                                                                                                                                                                                                                        currentMessage = (currentMessage + 1) % messages.length;
-                                                                                                                                                                                                                                                                          }, 500);
-                                                                                                                                                                                                                                                                          }
+  setTimeout(() => {
+    messageEl.textContent = MENSAGENS[currentMessage];  // Corrigi para usar MENSAGENS com "M" maiúsculo
+    messageEl.style.animation = 'none';
+    void messageEl.offsetWidth;
+    messageEl.style.animation = null;
 
-                                                                                                                                                                                                                                                                          showNextMessage();
-                                                                                                                                                                                                                                                                          setInterval(showNextMessage, 6000);
+    messageEl.style.opacity = 1;
+    currentMessage = (currentMessage + 1) % MENSAGENS.length;
+  }, 500);
+}
+
+showNextMessage();
+setInterval(showNextMessage, 6000);
