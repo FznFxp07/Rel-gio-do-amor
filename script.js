@@ -48,14 +48,21 @@ function Heart(x, y, size, speed) {
 }
 
 function animateHearts() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas
+
+  // Define a cor de fundo
+  ctx.fillStyle = '#2c3e50';  // Cor de fundo sólida
+  ctx.fillRect(0, 0, canvas.width, canvas.height); // Preenche o canvas com a cor
+
   hearts.forEach((heart, index) => {
     heart.update();
     heart.draw();
     if (heart.opacity <= 0) hearts.splice(index, 1);
   });
+
   requestAnimationFrame(animateHearts);
 }
+
 
 canvas.addEventListener('click', (e) => {
   for (let i = 0; i < 10; i++) {
