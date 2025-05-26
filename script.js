@@ -99,10 +99,18 @@ const MENSAGENS = [
   "Eu amo te amar, e essa é a melhor sensação do mundo."
 ];
 
+// Função para pegar uma mensagem aleatória
 function getRandomMessage() {
-  // Retorna uma mensagem aleatória
   const randomIndex = Math.floor(Math.random() * MENSAGENS.length);
   return MENSAGENS[randomIndex];
+}
+
+// Função para gerar posições aleatórias para as mensagens
+function getRandomPosition() {
+  const margin = 20; // margem para não ficar tão colado nas bordas
+  const randomX = Math.floor(Math.random() * (window.innerWidth - 200)) + margin;
+  const randomY = Math.floor(Math.random() * (window.innerHeight - 100)) + margin;
+  return { x: randomX, y: randomY };
 }
 
 function showNextMessage() {
@@ -110,10 +118,19 @@ function showNextMessage() {
   messageEl.style.opacity = 0;
 
   setTimeout(() => {
-    // Agora escolhemos a mensagem aleatória
+    // Pega a mensagem aleatória
     messageEl.textContent = getRandomMessage();
+
+    // Pega a posição aleatória
+    const { x, y } = getRandomPosition();
+
+    // Posiciona a mensagem em uma posição aleatória
+    messageEl.style.position = 'absolute';
+    messageEl.style.left = `${x}px`;
+    messageEl.style.top = `${y}px`;
+
     messageEl.style.animation = 'none';
-    void messageEl.offsetWidth;
+    void messageEl.offsetWidth; // Força reflow para reiniciar a animação
     messageEl.style.animation = null;
 
     messageEl.style.opacity = 1;
