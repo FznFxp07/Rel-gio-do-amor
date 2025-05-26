@@ -17,20 +17,15 @@ function Heart(x, y, size, speed) {
     ctx.fillStyle = `rgba(255, 0, 100, ${this.opacity})`;
     ctx.moveTo(this.x, this.y);
 
-    // Ajuste das curvas para um coração mais redondo
+    // Ajuste das curvas para um coração mais arredondado
     ctx.bezierCurveTo(
-      this.x, this.y - this.size, // Cima esquerda
-      this.x - this.size * 1.5, this.y - this.size, // Topo esquerdo mais arredondado
-      this.x - this.size, this.y // Lado esquerdo
+      this.x - this.size / 2, this.y - this.size,  // Curva esquerda superior
+      this.x - this.size, this.y - this.size / 2,  // Curva esquerda inferior
+      this.x, this.y // Ponto inferior central
     );
     ctx.bezierCurveTo(
-      this.x - this.size * 1.5, this.y + this.size, // Lado esquerdo mais arredondado
-      this.x + this.size * 1.5, this.y + this.size, // Lado direito mais arredondado
-      this.x + this.size, this.y // Lado direito
-    );
-    ctx.bezierCurveTo(
-      this.x + this.size * 1.5, this.y - this.size, // Topo direito mais arredondado
-      this.x, this.y - this.size, // Cima direita
+      this.x + this.size, this.y - this.size / 2,  // Curva direita inferior
+      this.x + this.size / 2, this.y - this.size,  // Curva direita superior
       this.x, this.y // Fecha o coração
     );
     ctx.fill();
