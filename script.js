@@ -180,7 +180,7 @@ function showNextMessage() {
     messageEl.style.left = `${x}px`;
     messageEl.style.top = `${y}px`;
 
-    // Aplica uma cor aleatória à mensagem
+    // Aplica uma cor aleatória à mensagem.
     messageEl.style.color = getRandomColor();
 
     messageEl.style.animation = 'none';
