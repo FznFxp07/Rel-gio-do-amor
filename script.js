@@ -90,13 +90,14 @@ updateClock();
 
 // === MENSAGENS EM LOOP ===
 const MENSAGENS = [
-  "Você vai ser minha alma para sempre!",
-  "Cada segundo ao seu lado é um presente.",
-  "Nosso amor cresce a cada batida.",
+  "Você vai ser minha alma para sempre.",
+  "Cada segundo ao seu lado é meu presente dos ceús.",
+  "Nosso amor aumenta a cada momento..",
   "Desde o começo de 2025, minha vida mudou.",
   "Amar você é minha melhor escolha.",
   "Eu te amo mais do que ontem e vou amar muito mais amanhã.",
-  "Eu amo te amar, e essa é a melhor sensação do mundo."
+  "Eu amo te amar, e essa é a melhor sensação do mundo.",
+  "Eu te amo minha florzinha de lírio."
 ];
 
 // Função para pegar uma mensagem aleatória
@@ -108,8 +109,25 @@ function getRandomMessage() {
 // Função para gerar posições aleatórias para as mensagens
 function getRandomPosition() {
   const margin = 20; // margem para não ficar tão colado nas bordas
-  const randomX = Math.floor(Math.random() * (window.innerWidth - 200)) + margin;
-  const randomY = Math.floor(Math.random() * (window.innerHeight - 100)) + margin;
+
+  // Cria uma nova div para calcular o tamanho da mensagem
+  const messageEl = document.createElement('div');
+  messageEl.style.position = 'absolute';
+  messageEl.style.visibility = 'hidden';
+  messageEl.textContent = getRandomMessage();
+  document.body.appendChild(messageEl);
+
+  // Calcula o tamanho da mensagem (largura e altura)
+  const messageWidth = messageEl.offsetWidth;
+  const messageHeight = messageEl.offsetHeight;
+
+  // Remove a div temporária
+  document.body.removeChild(messageEl);
+
+  // Garante que a posição seja válida e a mensagem não saia da tela
+  const randomX = Math.floor(Math.random() * (window.innerWidth - messageWidth - 2 * margin)) + margin;
+  const randomY = Math.floor(Math.random() * (window.innerHeight - messageHeight - 2 * margin)) + margin;
+
   return { x: randomX, y: randomY };
 }
 
