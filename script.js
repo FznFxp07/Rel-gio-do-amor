@@ -122,4 +122,3 @@ function Heart(x, y, size, speed) {
 
                                                                                                                                                                                                                                                                           showNextMessage();
                                                                                                                                                                                                                                                                           setInterval(showNextMessage, 6000);
-                                                                                                                                                                                                                                                                          ```
