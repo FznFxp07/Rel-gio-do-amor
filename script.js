@@ -114,10 +114,8 @@ const MENSAGENS = [
   "Eu te amo mais do que ontem e vou amar muito mais amanhã.",
   "Eu amo te amar, e essa é a melhor sensação do mundo.",
   "Eu te amo minha florzinha de lírio.",
-  "i love you my coffe with milk"
-
-];
-
+  "I love you my coffe with milk.",
+ ];
 // Array de cores para as mensagens
 const COLORS = [
   '#FFB6C1', // Rosa claro
